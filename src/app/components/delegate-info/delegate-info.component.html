@@ -1,0 +1,128 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="ibox float-e-margins">
+      <div class="ibox-content">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="profile-image">
+              <img src="/assets/img/ark-logo-flat-black-512.png" class="img-circle circle-border m-b-md" alt="profile">
+            </div>
+            <div class="profile-info">
+              <div>
+                <a id="linkUsername" target="_blank" href="{{ delegate ? 'https://explorer.ark.io/address/' + delegate.address : '#' }}">
+                  <h2 class="no-margins" id="lblUsername">{{ delegate ? delegate.username : null }}</h2>
+                </a>
+                <h4>delegate</h4>
+                <small>
+                  Here is a place for more detaild info about a delegate
+                </small>
+              </div>
+              <div class="row">
+                <div class="col-xs-12">
+                  <a href="" id="btnProposal" target="_blank" *ngIf="socialInfo.proposal || socialInfo.arkforum" href="{{ socialInfo.proposal ? socialInfo.proposal : (socialInfo.arkforum ? socialInfo.arkforum : '') }}">
+                    <i class="fa fa-2x fa-file-text"></i>
+                  </a>
+                  <a href="" id="btnTwitter" target="_blank" *ngIf="socialInfo.twitter" href="https://twitter.com/{{ socialInfo.twitter ? socialInfo.twitter : '' }}">
+                    <i class="fa fa-2x fa-twitter"></i>
+                  </a>
+                  <a href="" id="btnReddit" target="_blank" *ngIf="socialInfo.reddit" href="https://www.reddit.com/user/{{ socialInfo.reddit ? socialInfo.reddit : '' }}">
+                    <i class="fa fa-2x fa-reddit"></i>
+                  </a>
+                  <a href="" id="btnGithub" target="_blank" *ngIf="socialInfo.github" href="https://github.com/{{ socialInfo.github ? socialInfo.github : '' }}">
+                    <i class="fa fa-2x fa-github"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <table class="table small m-b-xs">
+              <tbody>
+                <tr>
+                  <td>Share Ratio</td>
+                  <td>
+                    <strong id="lblShareRatio">{{ delegateConfig ? (delegateConfig.shareratio * 100) + ' %' : null }}</strong>
+                  </td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Fees Covered</td>
+                  <td>
+                    <strong id="lblFeesCovered">{{ delegateConfig ? (delegateConfig.deductTxFees ? 'NO' : 'YES') : null }}</strong>
+                  </td>
+                  <td id="lblFeesCoveredInfo"></td>
+                </tr>
+                <tr>
+                  <td>Min Amount</td>
+                  <td>
+                    <strong id="lblMinAmount">{{ delegateConfig ? delegateConfig.minamount + ' Ѧ' : null }}</strong>
+                  </td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Fidelity</td>
+                  <td>
+                    <strong id="lblFidelity">{{ delegateConfig ? delegateConfig.fidelityLimit : null }}</strong>
+                  </td>
+                  <td id="lblFidelityInfo">{{ delegateConfig ? (delegateConfig.fidelity ? 'ACTIVE' : 'INACTIVE') : null }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <div class="ibox-content ibox-heading">
+          <h3 class="m-b-xxs">Active Voters</h3>
+          <small>Table is showing active voters and their weights (wallet balance)</small>
+        </div>
+      </div>
+      <div class="ibox-content">
+        <div class="">
+          <table class="table table-striped table-bordered table-hover dt-responsive" id="tblVoters">
+            <thead>
+              <tr>
+                <th title="Check payments">
+                  <i class="fa fa-info"></i>
+                </th>
+                <th>Address</th>
+                <th>Balance (Ѧ)</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <div class="ibox-content ibox-heading">
+          <h3 class="m-b-xxs">Blocked Voters</h3>
+          <small>Table is showing currently blocked voters.</small>
+        </div>
+      </div>
+      <div class="ibox-content">
+        <div class="">
+          <table class="table table-striped table-bordered table-hover dt-responsive" id="tblVotersBlocked">
+            <thead>
+              <tr>
+                <th>Address</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

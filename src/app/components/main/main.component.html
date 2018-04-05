@@ -1,0 +1,115 @@
+<div class="row">
+  <div class="col-lg-6">
+    <div class="ibox float-e-margins" [ngClass]="delegateConfig && delegateConfig.fidelityLimit <= 51 ? 'navy-bg' : 'red-bg'" id="widgetStatus">
+      <div class="ibox-title" style="background-color: transparent !important">
+        <h5>Status</h5>
+      </div>
+      <div class="ibox-content" style="background-color: transparent !important">
+        <h1 class="no-margins">
+          <i class="fa fa-cubes"></i>
+          <span id="lblNodeForgingAllowed">{{ nodeStatus && nodeStatus.forgingAllowed ? 'Forging' : 'Forging' }}</span>
+        </h1>
+        <small class="font-bold" id="lblNodeHeight">{{ nodeStatus ? 'Height ' + nodeStatus.height : null }}</small>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-2">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <h5>Voters</h5>
+      </div>
+      <div class="ibox-content">
+        <h1 class="no-margins">
+          <i class="fa fa-check-square-o"></i>
+          <span id="KryptoVoters">{{ votersRewards ? votersRewards.length : null }}</span>
+        </h1>
+        <small class="font-bold text-success">Number of voters</small>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <h5>Forged Blocks</h5>
+      </div>
+      <div class="ibox-content">
+        <div class="row">
+          <div class="col-sm-6">
+            <h1 class="no-margins" id="KryptoBlocksForged">{{ delegate ? delegate.producedblocks : null }}</h1>
+            <div class="font-bold text-navy">
+              <small>Number of produced blocks</small>
+            </div>
+          </div>
+          <div class="col-sm-6 text-right">
+            <h1 class="no-margins" id="KryptoRate">{{ delegate ? delegate.rate : null }}</h1>
+            <div class="font-bold text-navy">
+              <small>Rank</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <div class="ibox-content ibox-heading">
+          <h3 class="m-b-xxs">Delegate vote weight and transaction history</h3>
+        </div>
+      </div>
+      <div class="ibox-content">
+        <div class="flot-chart">
+          <flot [options]="chartOptions" [dataset]="chartDataset" [refresh]="chartRefresh" class="flot-chart-content" id="chartMyPayments"></flot>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <div class="ibox-content ibox-heading">
+          <h3 class="m-b-xxs">Blockchain news published via ARK (by <a href="https://arkcoin.net/" target="_blank">jarunik</a>)</h3>
+          <small>Send 0.1 ARK with vendorfield as news text to address {{ socialInfo ? socialInfo.arknewsaddress : 'LOADING' }}</small>
+        </div>
+      </div>
+      <div class="ibox-content no-padding">
+        <ul class="list-group" id="listSocialFeed">
+          <ng-template ngFor let-transaction let-i="index" [ngForOf]="socialTransactions">
+            <ng-template [ngIf]="i >= (currentNewsPage - 1) * 5 && i < (currentNewsPage * 5)">
+              <li class="list-group-item">
+                <p innerHTML="{{ transaction.vendorField }}"></p>
+                <small class="block text-muted">
+                  <i class="fa fa-clock-o"></i>
+                  {{ ((arkStartTimestamp + transaction.timestamp) | amFromUnix) | amDateFormat:'LLL' }}
+                  ({{ ((arkStartTimestamp + transaction.timestamp) | amFromUnix) | amTimeAgo }})
+                </small>
+              </li>
+            </ng-template>
+          </ng-template>
+        </ul>
+      </div>
+      <div class="ibox-content no-padding text-center" id="paginationSocialFeed">
+        <ul class="pagination">
+          <li class="paginate_button previous" (click)="previousPage()" [ngClass]="currentNewsPage === 1 ? 'disabled' : ''">
+            <a href="javascript:void(0);">Previous</a>
+          </li>
+          <li *ngFor="let pageNumber of newsPages"
+              attr.data-page="{{ pageNumber.number - 1 }}"
+              class="paginate_button"
+              (click)="goToPage(pageNumber.number)"
+              [ngClass]="{disabled: pageNumber.inBetween || pageNumber.number === currentNewsPage, active: pageNumber.number === currentNewsPage}">
+            <a href="javascript:void(0);">{{ pageNumber.number }}</a>
+          </li>
+          <li class="paginate_button next" (click)="nextPage()" [ngClass]="currentNewsPage === maxNewsPages ? 'disabled' : ''">
+            <a href="javascript:void(0);">Next</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
