@@ -1,8 +1,11 @@
-# Krypto
+# Krypto - voter management site
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.9.
-www.arkdelegate.com source site for delegate payments and information management to voters and community.
+
+Project is source for www.arkdelegate.com site for delegate payments and information management to voters and community.
 Feel free to reuse and contribute.
+
+Design theme is used from https://wrapbootstrap.com/theme/inspinia-responsive-admin-theme-WB0R5L90S. Please buy if reusing on own server or change the theme.
 
 ## Development server
 
